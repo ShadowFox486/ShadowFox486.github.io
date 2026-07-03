@@ -61,11 +61,24 @@ document.addEventListener("DOMContentLoaded", () => {
                 "files and folders, reports detected threats in real time, " +
                 "and can quarantine or remove malware.",
             stack: ["Python", "Security", "Malware Detection"],
+            role: "Currently building it from scratch, will be open source soon. Will Update Yall soon.",
+            note: "This project is currently under active development. More features coming soon.",
+            links: []
+        },
+        "shadow-debugger": {
+            image: "assets/images/banner-shadow-debugger.png",
+            title: "Shadow Debugger",
+            status: "In Progress",
+            statusClass: "in-progress",
+            fileTitle: "shadow-debugger.json",
+            description:
+                "A Python debugging tool that analyzes code, detects errors, " +
+                "and provides suggestions for optimization and improvement.",
+            stack: ["Python", "Security", "Debugging", "Code Analysis"],
             role: "N/A",
             note: "This project is currently under active development. More features coming soon.",
             links: []
         }
-
     };
 
     const els = {
