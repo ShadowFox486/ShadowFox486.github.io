@@ -138,23 +138,14 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // ==========================
-    // Contact Form (EmailJS)
+    // Contact Form (Formspree)
     // ==========================
-    // Fill in your keys in js/emailjs-config.js.
-    // Until you do, the form will show a friendly error instead of
-    // pretending to send.
+    // Submits in the background via fetch so the page doesn't
+    // reload — Formspree delivers the message straight to your inbox.
 
     const contactForm = document.getElementById("contact-form");
 
-    if (contactForm && typeof emailjs !== "undefined") {
-
-        if (typeof EMAILJS_CONFIG !== "undefined" &&
-            EMAILJS_CONFIG.PUBLIC_KEY &&
-            EMAILJS_CONFIG.PUBLIC_KEY !== "BS7yi-m-WTsR3lP5i") {
-
-            emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
-
-        }
+    if (contactForm) {
 
         contactForm.addEventListener("submit", e => {
 
@@ -163,57 +154,40 @@ document.addEventListener("DOMContentLoaded", () => {
             const button = contactForm.querySelector("button[type=submit]");
             const originalText = button.textContent;
 
-            const notConfigured =
-                typeof EMAILJS_CONFIG === "undefined" ||
-                !EMAILJS_CONFIG.PUBLIC_KEY ||
-                EMAILJS_CONFIG.PUBLIC_KEY === "BS7yi-m-WTsR3lP5i";
-
-            if (notConfigured) {
-
-                button.textContent = "Email not configured yet";
-
-                setTimeout(() => {
-
-                    button.textContent = originalText;
-
-                }, 3000);
-
-                return;
-
-            }
-
             button.textContent = "Sending...";
             button.disabled = true;
 
-            const params = {
+            fetch(contactForm.action, {
 
-                from_name: document.getElementById("name").value,
-                from_email: document.getElementById("email").value,
-                message: document.getElementById("message").value
+                method: "POST",
+                body: new FormData(contactForm),
+                headers: { "Accept": "application/json" }
 
-            };
+            })
+            .then(res => {
 
-            emailjs.send(
-                EMAILJS_CONFIG.SERVICE_ID,
-                EMAILJS_CONFIG.TEMPLATE_ID,
-                params
-            )
-            .then(() => {
+                if (res.ok) {
 
-                button.textContent = "Message Sent ✔";
+                    button.textContent = "Message Sent ✔";
 
-                setTimeout(() => {
+                    setTimeout(() => {
 
-                    button.textContent = originalText;
-                    button.disabled = false;
-                    contactForm.reset();
+                        button.textContent = originalText;
+                        button.disabled = false;
+                        contactForm.reset();
 
-                }, 2500);
+                    }, 2500);
+
+                } else {
+
+                    throw new Error("Formspree responded with an error");
+
+                }
 
             })
             .catch(err => {
 
-                console.error("EmailJS error:", err);
+                console.error("Contact form error:", err);
 
                 button.textContent = "Failed — try again";
 
