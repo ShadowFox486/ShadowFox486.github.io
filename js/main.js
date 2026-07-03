@@ -138,16 +138,23 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // ==========================
-    // Contact Form
+    // Contact Form (EmailJS)
     // ==========================
-    // NOTE: this is a static site with no backend, so the form
-    // currently just confirms locally. To actually receive
-    // messages, wire this up to a form service (e.g. Formspree)
-    // or your own API and swap the code below for a fetch() call.
+    // Fill in your keys in js/emailjs-config.js.
+    // Until you do, the form will show a friendly error instead of
+    // pretending to send.
 
     const contactForm = document.getElementById("contact-form");
 
-    if (contactForm) {
+    if (contactForm && typeof emailjs !== "undefined") {
+
+        if (typeof EMAILJS_CONFIG !== "undefined" &&
+            EMAILJS_CONFIG.PUBLIC_KEY &&
+            EMAILJS_CONFIG.PUBLIC_KEY !== "YOUR_PUBLIC_KEY_HERE") {
+
+            emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
+
+        }
 
         contactForm.addEventListener("submit", e => {
 
@@ -156,16 +163,68 @@ document.addEventListener("DOMContentLoaded", () => {
             const button = contactForm.querySelector("button[type=submit]");
             const originalText = button.textContent;
 
-            button.textContent = "Message Logged ✔";
+            const notConfigured =
+                typeof EMAILJS_CONFIG === "undefined" ||
+                !EMAILJS_CONFIG.PUBLIC_KEY ||
+                EMAILJS_CONFIG.PUBLIC_KEY === "YOUR_PUBLIC_KEY_HERE";
+
+            if (notConfigured) {
+
+                button.textContent = "Email not configured yet";
+
+                setTimeout(() => {
+
+                    button.textContent = originalText;
+
+                }, 3000);
+
+                return;
+
+            }
+
+            button.textContent = "Sending...";
             button.disabled = true;
 
-            setTimeout(() => {
+            const params = {
 
-                button.textContent = originalText;
-                button.disabled = false;
-                contactForm.reset();
+                from_name: document.getElementById("name").value,
+                from_email: document.getElementById("email").value,
+                message: document.getElementById("message").value
 
-            }, 2500);
+            };
+
+            emailjs.send(
+                EMAILJS_CONFIG.SERVICE_ID,
+                EMAILJS_CONFIG.TEMPLATE_ID,
+                params
+            )
+            .then(() => {
+
+                button.textContent = "Message Sent ✔";
+
+                setTimeout(() => {
+
+                    button.textContent = originalText;
+                    button.disabled = false;
+                    contactForm.reset();
+
+                }, 2500);
+
+            })
+            .catch(err => {
+
+                console.error("EmailJS error:", err);
+
+                button.textContent = "Failed — try again";
+
+                setTimeout(() => {
+
+                    button.textContent = originalText;
+                    button.disabled = false;
+
+                }, 2500);
+
+            });
 
         });
 
