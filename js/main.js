@@ -150,7 +150,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (typeof EMAILJS_CONFIG !== "undefined" &&
             EMAILJS_CONFIG.PUBLIC_KEY &&
-            EMAILJS_CONFIG.PUBLIC_KEY !== "YOUR_PUBLIC_KEY_HERE") {
+            EMAILJS_CONFIG.PUBLIC_KEY !== "BS7yi-m-WTsR3lP5i") {
 
             emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
 
@@ -166,7 +166,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const notConfigured =
                 typeof EMAILJS_CONFIG === "undefined" ||
                 !EMAILJS_CONFIG.PUBLIC_KEY ||
-                EMAILJS_CONFIG.PUBLIC_KEY === "YOUR_PUBLIC_KEY_HERE";
+                EMAILJS_CONFIG.PUBLIC_KEY === "BS7yi-m-WTsR3lP5i";
 
             if (notConfigured) {
 

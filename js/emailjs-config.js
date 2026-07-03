@@ -17,6 +17,6 @@ const EMAILJS_CONFIG = {
 
     PUBLIC_KEY: "BS7yi-m-WTsR3lP5i",
     SERVICE_ID: "shadow_service486",
-    TEMPLATE_ID: "template_s3m1ixp"
+    TEMPLATE_ID: "template_y66l3i1"
 
 };
