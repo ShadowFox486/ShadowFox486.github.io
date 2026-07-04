@@ -53,17 +53,17 @@ document.addEventListener("DOMContentLoaded", () => {
         "shadow-av": {
             image: "assets/images/banner-shadow-av.jpg",
             title: "Shadow AV",
-            status: "In Progress",
-            statusClass: "in-progress",
             fileTitle: "shadow-av.json",
             description:
                 "A next-generation Python antivirus application that scans " +
                 "files and folders, reports detected threats in real time, " +
                 "and can quarantine or remove malware.",
             stack: ["Python", "Security", "Malware Detection"],
-            role: "Currently building it from scratch, will be open source soon. Will Update Yall soon.",
-            note: "This project is currently under active development. More features coming soon.",
-            links: []
+            role: "Solo developer — architecture, malware detection, and UI.",
+            note: null,
+            links: [
+                { label: "View Code", href: "https://github.com/ShadowFox486/Shadow-AV", primary: true }
+            ]
         },
         "shadow-debugger": {
             image: "assets/images/banner-shadow-debugger.png",
