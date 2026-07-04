@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "shadow-ai": {
             image: "assets/images/banner-shadow-ai.jpg",
             title: "Shadow AI",
-            status: "Featured",
+            status: "Finished",
             statusClass: "",
             fileTitle: "shadow-ai.json",
             description:
@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "portfolio": {
             image: "assets/images/banner-portfolio.jpg",
             title: "Elliot.dev — This Portfolio",
-            status: "Live",
+            status: "Finished",
             statusClass: "",
             fileTitle: "portfolio.json",
             description:
@@ -53,6 +53,8 @@ document.addEventListener("DOMContentLoaded", () => {
         "shadow-av": {
             image: "assets/images/banner-shadow-av.jpg",
             title: "Shadow AV",
+            status: "Finished",
+            statusClass: "",
             fileTitle: "shadow-av.json",
             description:
                 "A next-generation Python antivirus application that scans " +
